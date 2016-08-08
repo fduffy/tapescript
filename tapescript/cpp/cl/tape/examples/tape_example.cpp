@@ -76,6 +76,11 @@ struct test_stream
 #  define out_str test_stream(out_stream)
 
 #include <boost/timer.hpp>
+#ifdef BOOST_MSVC
+#define BOOST_LIB_NAME boost_system
+#include <boost/config/auto_link.hpp>
+#endif
+
 #include "impl/array_examples.hpp"
 #include "impl/basic_examples.hpp"
 #include "impl/basic_int_examples.hpp"
@@ -128,10 +133,9 @@ int main()
 
     try
     {
-//#       define  CL_CERTAIN_TEST cl::basket_pricing_example
+#		define  CL_CERTAIN_TEST cl::basic_examples
 #       if defined  CL_CERTAIN_TEST
-            tests.push_back({ "Run certain test ..."
-                , CL_CERTAIN_TEST });
+            tests.push_back({ "Run certain test ...", CL_CERTAIN_TEST });
 #       endif
 
 #       if !defined  CL_CERTAIN_TEST
